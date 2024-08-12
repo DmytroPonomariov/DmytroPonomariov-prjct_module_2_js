@@ -23,25 +23,21 @@ for (let number = 1; number < 101; number = number + 1) {
 
 // Assignment 2
 
-// З while чому не працюю. НЕ розумію що не правилно зробив. Думаю умову з иф не там може.
 
-let value = 1;
+let value = 0;
 
 while (value < 10) {
+  if (typeof value !== "number") {
+    console.log("Таке чуство шо Бог десь наказує нас за шось");
+    break;
+  }
 
-    if (typeof value !== "number") {
-        console.log('Таке чуство шо Бог десь наказує нас за шось')
-        continue;
-    }
-    if (value % 2 !== 0) {
-        continue;
-    }
+  if (value % 2 === 0) {
+    console.log(value);
+  }
 
-    value = value + 1;
+  value = value + 1;
 }
-
-console.log(value);
-
 
 
 for (let value2 = 0; value2 < 10; value2 = value2 + 1) {
@@ -54,3 +50,7 @@ for (let value2 = 0; value2 < 10; value2 = value2 + 1) {
     }
     console.log(value2);
 }
+
+
+
+
