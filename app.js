@@ -1,41 +1,59 @@
 // Homework 5
 
 // Assignment 1
+
 // Math.abs(Math.round(days))
 
-// const startDate = new Date("07/15/2015");  
-// const endDate = new Date("11/28/2016");  
+const startDate = new Date("09/01/1939");  
+const endDate = new Date("05/08/1945");  
 
-// function daysDurationBetweenDates(startDate, endDate, type) {
-//     switch (type) {
-//         case "days":
-//         let days = (endDate.getTime() - startDate.getTime()) / 1000;
-//         days /= (60 * 60 * 24);
-//         return days + 'days'
-//     }
+function daysDurationBetweenDates(startDate, endDate, type) {
+    switch (type) {
+        case "days":
+            let days = (endDate.getTime() - startDate.getTime()) / 1000;
+            days = Math.abs(Math.round(days / (60 * 60 * 24)))
+            return days + ' days'
+        case "hours":
+            let hours = (endDate.getTime() - startDate.getTime()) / 1000;
+            hours = Math.abs(Math.round(hours / (60 * 60)))
+            return hours + ' hours'
+        case "minutes":
+            let minutes = (endDate.getTime() - startDate.getTime()) / 1000;
+            minutes = Math.abs(Math.round(minutes / (60)))
+            return minutes + ' minutes'
+        case "seconds":
+            let seconds = (endDate.getTime() - startDate.getTime()) / 1000;
+            seconds = Math.abs(Math.round(seconds))
+            return seconds + ' seconds'
+    }
+}
 
-// }
-
-// console.log(daysDurationBetweenDates(startDate, endDate, "days"))
+console.log(daysDurationBetweenDates(startDate, endDate, "days"))
 
 
 // Assignment 2
 
-// const resultsArray = [1, 2, [3, [4]]];
+// const rounded = number.toFixed(2)
 
-// const expression = resultsArray.flat(Infinity)
-// .reduce(function(accumulator, currentValue) {
-//     return accumulator * currentValue
-// });
 
-// console.log(expression);
+const priceData = {
+    Apples: '23.4',
+    BANANAS: '48',
+    oRAngGEs: '48.7584',
+    };
 
-// приклад об'єкту
-// const priceData = {
-//     Apples: '23.4',
-//     BANANAS: '48',
-//     oRAngGEs: '48.7584',
-//     };
+const priceDataNew = {}
+
+for (const [key, value] of Object.entries(priceData)){
+    const keyUpperCase = [key].toUpperCase();
+    priceDataNew.push([key])
+    const valueRound = (Number([value]).toFixed(2)).toString;
+    priceDataNew.push([value])
+}
+
+console.log(priceDataNew)
+
+
 
 // let entries = Object.entries(priceData);
 // let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
