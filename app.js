@@ -44,15 +44,25 @@ const priceData = {
 
 const priceDataNew = {}
 
+
 for (const [key, value] of Object.entries(priceData)){
-    const keyUpperCase = [key].toUpperCase();
-    priceDataNew.push([key])
-    const valueRound = (Number([value]).toFixed(2)).toString;
-    priceDataNew.push([value])
+    const NewKey = key.toUpperCase();
+    const NewValue = (Number([value]).toFixed(2));
+
+    priceDataNew[NewKey] = NewValue
 }
 
 console.log(priceDataNew)
 
+
+// for (const [key, value] of Object.entries(priceData)){
+//     const NewKey = key.toUpperCase();
+//     priceDataNew.push([key])
+//     const NewValue = (Number([value]).toFixed(2)).toString;
+//     priceDataNew.push([value])
+// }
+
+// console.log(priceDataNew)
 
 
 // let entries = Object.entries(priceData);
