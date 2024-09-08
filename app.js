@@ -40,7 +40,7 @@ const userNames3vowels = [];
 
 for (let i = 0; i < userNames3.length; i++) {
     if (['А', 'Е', 'Є', 'И', 'І', 'Ї', 'О', 'У', 'Ю', 'Я'].includes(userNames3[0])){
-        userNames3vowels.push()
+        userNames3vowels.push(userNames3)
         }
   }
   console.log(userNames3vowels);
