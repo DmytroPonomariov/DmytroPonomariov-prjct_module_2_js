@@ -7,13 +7,13 @@
 // });
 
 
-// function toggle() {
-//     if (document.getElementById("unit").innerHTML === "metric") {
-//         document.getElementById("unit").innerHTML = "imperial";
-//     } else  {
-//         document.getElementById("unit").innerHTML = "metric";
-//     }
-// }
+function toggle() {
+    if (document.getElementById("unit").innerHTML === "TURN OFF") {
+        document.getElementById("unit").innerHTML = "TURN ON";
+    } else  {
+        document.getElementById("unit").innerHTML = "TURN OFF";
+    }
+}
 
 
 
