@@ -7,15 +7,34 @@
 // });
 
 
-function toggle() {
-    if (document.getElementById("unit").innerHTML === "TURN OFF") {
-        document.getElementById("unit").innerHTML = "TURN ON";
-    } else  {
-        document.getElementById("unit").innerHTML = "TURN OFF";
-    }
-}
+// function toggle() {
+//     if (document.getElementById("unit").innerHTML === "TURN OFF") {
+//         document.getElementById("unit").innerHTML = "TURN ON";
+//     } else  {
+//         document.getElementById("unit").innerHTML = "TURN OFF";
+//     }
+// }
+
+// const middlePara = document.querySelector('#middle')
+
+// console.log(middlePara)
+
+// const parentEl = middlePara.parentElement
+
+// console.log(parentEl)
+
+// const children = parentEl.children;
+// // console.log(children);
+// Array.from(children).forEach(child => console.log(child));
+
+// const firstElement = parentEl.firstElementChild;
+// console.log(firstElement)
 
 
+const div = document.querySelector('#container')
+console.log(div)
+
+div.setAttribute('data-vog', 'div1.1')
 
 
 
