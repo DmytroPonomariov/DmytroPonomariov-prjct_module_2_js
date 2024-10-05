@@ -1,57 +1,65 @@
-// let buttonOff = document.querySelector(".glow-on-hover");
-// let textButton = buttonOff.innerText === 'TURN OFF'
+'Strict mode'
 
-// buttonOff.addEventListener('click', () =>{
-//     textButton !== 'TURN OFF' ? 'TURN ON' : 'TURN OFF'
+const button = document.querySelector('#theme-switch');
+const lastUpdate = document.querySelector('#last-update')
+const lastUpdateValue = new Date()
 
-// });
+// setUpdate()
 
-
-// function toggle() {
-//     if (document.getElementById("unit").innerHTML === "TURN OFF") {
-//         document.getElementById("unit").innerHTML = "TURN ON";
-//     } else  {
-//         document.getElementById("unit").innerHTML = "TURN OFF";
-//     }
+// function setUpdate {
+//     lastUpdate.innerHTML = localStorage.getItem('lastUpdate')
 // }
 
-// const middlePara = document.querySelector('#middle')
 
-// console.log(middlePara)
+button.addEventListener('click', themeToggle);
 
-// const parentEl = middlePara.parentElement
+function themeToggle() {
+    if (localStorage.getItem('theme') === 'light' || !localStorage.getItem('theme')) {
+        turnOff();
+    } else {
+        turnOn();
+    }
+    localStorage.setItem('lastUpdate', lastUpdateValue)
+    lastUpdate.innerHTML = localStorage.getItem('lastUpdate')
+}
 
-// console.log(parentEl)
+function turnOff() {
+    document.body.classList.add('darkmode')
+    localStorage.setItem('theme', 'dark')
+    button.innerHTML = "TURN OFF"
+    // lastUpdate.classList.remove('text-color')
+}
 
-// const children = parentEl.children;
-// // console.log(children);
-// Array.from(children).forEach(child => console.log(child));
-
-// const firstElement = parentEl.firstElementChild;
-// console.log(firstElement)
-
-
-const div = document.querySelector('#container')
-console.log(div)
-
-div.setAttribute('data-vog', 'div1.1')
-
+function turnOn() {
+    document.body.classList.remove('darkmode')
+    localStorage.setItem('theme', 'light')
+    // button.innerHTML = "TURN ON"
+    // lastUpdate.classList.add('text-color')
+}
 
 
-// function changeLabel() {
-//     const buttonOff = 
-//         document.querySelector('.glow-on-hover');
-//     buttonOff.innerHTML = 'Button Clicked!';
+
+
+
+
+
+
+// let darkmode = localStorage.getItem('darkmode')
+// const themeSwitch = document.getElementById('theme-switch')
+
+// const enableDarkmode = () => {
+//     document.body.classList.add('darkmode')
+//     localStorage.setItem('darkmode', 'active')
 // }
 
-// function toggleText(event) {
-//     const buttonOff = event.textContent || event.innerText;
-//     if (text == 'TURN OFF') {
-//         event.innerHTML = 'ON';
-//     }
-//     else {
-//         event.innerHTML = 'TURN OFF';
-//     }
+// const disableDarkmode = () => {
+//     document.body.classList.remove('darkmode')
+//     localStorage.setItem('darkmode', null)
 // }
 
-// eve
+// if(darkmode ==='active') enableDarkmode()
+
+// themeSwitch.addEventListener('click', () => {
+//     darkmode = localStorage.getItem('darkmode')
+//     darkmode !== 'active' ? enableDarkmode() : disableDarkmode()
+// })
