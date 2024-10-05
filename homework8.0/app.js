@@ -16,8 +16,3 @@ const divWithClass = document.getElementsByClassName('hatredLevelBlock')
 console.log(divWithClass)
 
 
-
-
-
-
-
