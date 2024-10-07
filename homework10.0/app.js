@@ -19,15 +19,20 @@
 //     console.log('add task')
 // }
 
-const form = document.querySelector('.create-task-form')
+const form = document.querySelector('.create-task-form');
+const collection = document.querySelector('.collection');
 
 form.addEventListener('submit', addTask)
 
 function addTask(event) {
     event.preventDefault();
     const inputValue = event.target.task.value;
-    console.log(inputValue)
+    const li = document.createElement('li');
+    li.innerHTML = inputValue;
+    collection.append(li)
 }
+
+
 
 
 
