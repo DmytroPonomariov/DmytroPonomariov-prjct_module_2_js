@@ -1,3 +1,62 @@
+'use strick'
+
+const form = document.querySelector('.date_range_input/parameters_form"')
+const radioPreset = document.getElementsByName('preset');
+const radioDayOptions = document.getElementsByName('day-option');
+const radioCountdownOptions = document.getElementsByName('countdown-option');
+
+form.addEventListener('submit', calculate)
+
+function calculate(event) {
+  event.preventDefault();
+  // const todayDateInputValue = event.target.today_date.value
+  const endDateInputValue = event.target.future_date.value
+  const startDate = new Date(Date.now);
+  const endDate = new Date(endDateInputValue);
+
+  // Я от як думаю. Я взяв значення фючер інпута. Засетив його значення в Ню дейт. І присвоїв ендДейт.
+// Далі присвоїв сьогоднішню дату в сатрт дейт. 
+// Далі є ці значення. Їх якщо відняти то отримаємо мілісекнди. ДАлі можна їх через світчкейс кновертувати для цього у нас є функція нижче. 
+// До неї ще дойдем. Але перед цим. Треба поставити теж якийсь світч чи умову тру.фолс. Слухачі події на радіоботони. 
+// А я не знаю як це робити. Типу через умову. 
+
+// Перше це має бути умова якщо хтось натиснув прісет то добавляєтться тиждень або місяць. Я там добавляю просто в мілесукундах тиждень та місяць.
+// І я хочу щоб це робились один раз тільки до дати в сьогодні + місяць чи тиждень. Щоб до будь-якої дати не можна було добавляти. 
+
+// Key point
+// Так, треба так зробити щоб було свободне поле. Але при кліку на прісет забивався прісет в поле фючер дейт Через світч якось. Якщо клікнув на фючер дейт. Щоб прісет віджимався сам.  
+
+
+
+// Потім Він йде через умову які дні. Також там робимо якось дефолтний день. Можливо треба просто чек поставити на радіо. 
+// Але чи буде це вважатись за клік. Далі. Йдем в останій по суті це -
+//  конвертер мілісекунди в дні, години, хвилини. Які ще можуть бути сценарії. 
+// Наприклад сценарій що не вибрали прісет. Тоді він пропускається. Питання чи знімати прісет з кліка
+// через // Handle preset button clicks як зробив через фор іч. Чи треба кожному радіо робити квері селектор і івент?
+
+  if ()
+
+  
+}
+
+// Handle preset button clicks
+radioPreset.forEach((radio) => {
+  radio.addEventListener('click', (event) => {
+    const radioPresetValue = event.target.preset.value;
+    switch (radioPresetValue) {
+      case 'Week':
+        endDateWeek = new Date(Date.now() + 7 * 24 * 60 * 60 / 1000);
+        break;
+      case 'Month':
+        endDateMonth = new Date(Date.now() + 30 * 24 * 60 * 60 / 1000);
+        break;
+    }
+    daysDurationBetweenDates();
+  });
+});
+
+// Функція конвертор часу з мілесекунд в дні, години, хвилини, секунди.
+
 const startDate = new Date("09/01/1939");  
 const endDate = new Date("05/08/1945");  
 
@@ -27,6 +86,7 @@ console.log(daysDurationBetweenDates(startDate, endDate, "days"))
 
 
 
+// Приклад який брав за основу
 
 const countdownElement = document.getElementById('countdown');
 const presetButtons = document.querySelectorAll('.preset-button');
