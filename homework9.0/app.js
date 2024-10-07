@@ -3,15 +3,21 @@
 const button = document.querySelector('#theme-switch');
 const lastUpdate = document.querySelector('#last-update')
 const lastUpdateValue = new Date()
-
-// setUpdate()
-
-// function setUpdate {
-//     lastUpdate.innerHTML = localStorage.getItem('lastUpdate')
-// }
+const lastUpdateText = document.querySelector('.last-update_text')
 
 
 button.addEventListener('click', themeToggle);
+document.addEventListener('DOMContentLoaded', init);
+
+function init() {
+    if ( localStorage.getItem('theme')) {
+        if ( localStorage.getItem('theme') === 'dark' ) {
+            turnOff();
+        } else {
+            turnOn()
+        }
+    }
+}
 
 function themeToggle() {
     if (localStorage.getItem('theme') === 'light' || !localStorage.getItem('theme')) {
@@ -26,15 +32,20 @@ function themeToggle() {
 function turnOff() {
     document.body.classList.add('darkmode')
     localStorage.setItem('theme', 'dark')
-    button.innerHTML = "TURN OFF"
-    // lastUpdate.classList.remove('text-color')
+    button.innerHTML = "TURN ON"
+    lastUpdate.innerHTML = localStorage.getItem('lastUpdate')
+    lastUpdate.classList.add('text-color')
+    lastUpdateText.classList.add('text-color')
 }
 
 function turnOn() {
     document.body.classList.remove('darkmode')
     localStorage.setItem('theme', 'light')
-    // button.innerHTML = "TURN ON"
-    // lastUpdate.classList.add('text-color')
+    button.innerHTML = "TURN OFF"
+    lastUpdate.innerHTML = localStorage.getItem('lastUpdate')
+    lastUpdate.classList.remove('text-color')
+    lastUpdateText.classList.remove('text-color')
+
 }
 
 

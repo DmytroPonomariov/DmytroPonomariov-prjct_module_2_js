@@ -99,3 +99,9 @@ body {
 .text-color{
     color: #fff;
 }
+
+.wrapper_last-update{
+    display: flex;
+    gap: 30px;
+}
+
