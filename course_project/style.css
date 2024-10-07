@@ -1,0 +1,210 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.container{
+    /* display: flex;
+    gap: 50px;
+    justify-content: center; */
+    padding: 30px 15px;
+    background-color: #e8aad0;
+}
+
+.date_range_title{
+    font-size: 35px;
+    margin-bottom: 50px;
+}
+
+.date_range_input_and_button{
+    display: flex;
+    justify-content: space-between;
+
+}
+
+
+
+.data_range_button{
+    position:relative;
+    display:inline-block;
+    /* margin:20px; */
+  }
+  
+  
+  .data_range_button button{
+    position: relative;
+    /* font-weight:bold; */
+    text-align: center;
+    text-decoration:none;
+    position: relative;
+    width: 218px;
+    height: 60px;
+    padding: 20px;
+    /* background: linear-gradient(150deg, #320c35, #cfa3d2,); */
+    /* border-radius: 10px; */
+    outline: none;
+    font-size: 15px;
+    /* font-weight: 350px; */
+    letter-spacing: 3px;
+    color: #650505;
+    text-transform: uppercase;
+    background-color: #fdcaff;
+    
+    -webkit-tap-highlight-color: rgba(140, 43, 43, 0);
+    text-shadow: 0px 1px 0px #592160;
+    filter: dropshadow(color=#592160, offx=0px, offy=1px);
+    
+    -webkit-box-shadow:inset 0 1px 0 #f4a8f6, 0 10px 0 #592160;
+    -moz-box-shadow:inset 0 1px 0 #f4a8f6, 0 10px 0 #592160;
+    box-shadow:inset 0 1px 0 #f4a8f6, 0 10px 0 #592160;
+    
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+  }
+  
+  .data_range_button button:active{
+    top:10px;
+    background-color:#f4a8f6;
+    
+    -webkit-box-shadow:inset 0 1px 0 #f4a8f6, inset 0 -3px 0 #5f0d65;
+    -moz-box-shadow:inset 0 1px 0 #f4a8f6, inset 0 -3pxpx 0 #453e35;
+    box-shadow:inset 0 1px 0 #f4a8f6, inset 0 -3px 0 #5c0091;
+  }
+  
+  .data_range_button:after{
+    content:"";
+    height:100%;
+    width:100%;
+    padding:4px;
+    position: absolute;
+    bottom:-15px;
+    left:-4px;
+    z-index:-1;
+    background-color:#26185a;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+  }
+
+
+
+
+
+
+
+
+.date-range input {
+    width: 120px;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    text-align: center;
+    margin-right: 10px;    
+    margin-left: -30px;
+    cursor: pointer;
+}
+/* .date-range i {
+
+} */
+
+.date_range_input[type = "date"]{
+    margin-right: 20px;
+    position: relative;
+    width: 218px;
+    height: 60px;
+    padding: 20px;
+    /* border: 5px;
+    border-color: #45134b; */
+    /* background: linear-gradient(150deg, #833c87, #802487,); */
+    border-radius: 10px;
+    outline: solid;
+        /* border-radius: 2rem;    font-size: 15px; */
+    font-weight: 350px;
+    letter-spacing: 3px;
+    color: #650505;
+    text-transform: uppercase;
+    /* box-shadow: 0px 30px 20px #000; */
+}
+
+.data_range_parameter_list{
+    display: flex;
+}
+
+/* .presets-options-list label{
+    display: flex;
+    justify-content: center;
+} */
+
+.presets-options-list li :last-child{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.date_range_input_and_button{
+    max-width: 680px;
+    margin-bottom: 20px;
+}
+
+
+.presets-options-list {
+    list-style-type: none;
+    margin: 25px 0 0 0;
+    padding: 0;
+    
+  }
+  
+.presets-options-list li {
+  /* float: left; */
+    /* margin: 0 5px 0 0; */
+
+    margin-right: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    width: 218px;
+    height: 60px;
+    padding: 20px;
+    border-radius: 10px;
+    outline: solid;
+    background: #ffffff;
+
+  }
+  
+.presets-options-list label,
+.presets-options-list input {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  
+.presets-options-list input[type="radio"] {
+    opacity: 0;
+    z-index: 100;
+  }
+  
+.presets-options-list input[type="radio"]:checked+label,
+  .Checked+label {
+    color: rgb(255, 255, 255);
+    border-radius: 10px;
+    background: rgb(92, 33, 111);
+  }
+  
+.presets-options-list label {
+    padding: 5px;
+    /* border: 1px solid #CCC; */
+    cursor: pointer;
+    z-index: 90;
+  }
+  
+.presets-options-list label:hover {
+    background: #DDD;
+  }

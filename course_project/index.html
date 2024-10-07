@@ -3,6 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Range Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <section class="data_range" >
+      <h1 class="date_range_title">Data Range Calculator</h1>
+      <div class="date_range_input/parameters">
+        <form>
+          <div class="date_range_input_and_button ">
+            <input class="date_range_input" type="date" id="today_date" value='New Date'>
+            <input class="date_range_input" type="date" id="future_date" placeholder="Future Date" value="">
+            <div class="data_range_button">
+              <button type="submit">Calculate</button>
+            </div>
+          </div>
+          <div class="data_range_parameters">
+            <div class="data_range_parameter">
+              <h2 class="data_range_parameter_title">Time Interval Presets:</h2>
+              <ul class="data_range_parameter_list presets-options-list">
+                  <li>
+                      <input type="radio" id="week" name="preset" value="7">
+                      <label for="week">Week</label>
+                  </li>
+                  <li>
+                      <input type="radio" id="month" name="preset" value="30">
+                      <label for="month">Month</label>
+                  </li>
+              </ul>
+            </div>
+            <div class="data_range_parameter">
+              <h2 class="data_range_parameter_title" >Day Options:</h2>
+              <ul class="data_range_parameter_list presets-options-list">
+                  <li>
+                      <input type="radio" id="all-days" name="day-option" value="all">
+                      <label for="all-days">All days</label>
+                  </li>
+                  <li>
+                      <input type="radio" id="weekdays" name="day-option" value="weekdays">
+                      <label for="weekdays">Weekdays</label>
+                  </li>
+                  <li>
+                      <input type="radio" id="weekends" name="day-option" value="weekends">
+                      <label for="weekends">Weekends</label>
+                  </li>
+              </ul>
+            </div>
+            <div class="data_range_parameter">
+              <h2 class="data_range_parameter_title" >Countdown Options:</h2>
+              <ul class="data_range_parameter_list presets-options-list">
+                  <li>
+                      <input type="radio" id="days" name="countdown-option" value="days">
+                      <label for="days">Days</label>
+                  </li>
+                  <li>
+                      <input type="radio" id="hours" name="countdown-option" value="hours">
+                      <label for="hours">Hours</label>
+                  </li>
+                  <li>
+                      <input type="radio" id="minutes" name="countdown-option" value="minutes">
+                      <label for="minutes">Minutes</label>
+                  </li>
+                  <li>
+                      <input type="radio" id="seconds" name="countdown-option" value="seconds">
+                      <label for="seconds">Seconds</label>
+                  </li>
+              </ul>
+            </div>
+          </div>  
+        </form>
+      </div>
+    </section>
+    <section class="data_range_output">
+      <ul class="data_range_output_list">
+        <li><p>data_range_output_list data_range_output_list data_range_output_list</p></li>
+      </ul>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body>
@@ -78,4 +166,4 @@
     </div>
     <script src="./app.js"></script>
 </body>
-</html>
+</html> -->
