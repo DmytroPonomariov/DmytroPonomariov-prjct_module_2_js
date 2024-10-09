@@ -8,12 +8,12 @@
 </head>
 <body>
   <div class="container">
-    <section class="data_range" >
+    <section class="data_range_section">
       <h1 class="date_range_title">Data Range Calculator</h1>
-      <div class="date_range_input/parameters">
-        <form class="date_range_input/parameters_form">
+      <div class="date_range_form_wrapper">
+        <form class="date_range_form">
           <div class="date_range_input_and_button ">
-            <input class="date_range_input" type="date" id="today_date" value='New Date'>
+            <input class="date_range_input" type="date" id="today_date" value="">
             <input class="date_range_input" type="date" id="future_date" placeholder="Future Date" value="">
             <div class="data_range_button">
               <button type="submit">Calculate</button>
@@ -24,11 +24,11 @@
               <h2 class="data_range_parameter_title">Time Interval Presets:</h2>
               <ul class="data_range_parameter_list presets-options-list">
                   <li>
-                      <input type="radio" id="week" name="preset" value="7">
+                      <input class="input-preset" type="radio" id="week" name="preset" value="week">
                       <label for="week">Week</label>
                   </li>
                   <li>
-                      <input type="radio" id="month" name="preset" value="30">
+                      <input class="input-preset" type="radio" id="month" name="preset" value="month">
                       <label for="month">Month</label>
                   </li>
               </ul>
@@ -37,15 +37,15 @@
               <h2 class="data_range_parameter_title" >Day Options:</h2>
               <ul class="data_range_parameter_list presets-options-list">
                   <li>
-                      <input type="radio" id="all-days" name="day-option" value="all">
+                      <input class="input-daysType" type="radio" id="all_days" name="days_type" value="7">
                       <label for="all-days">All days</label>
                   </li>
                   <li>
-                      <input type="radio" id="weekdays" name="day-option" value="weekdays">
+                      <input class="input-daysType" type="radio" id="weekdays" name="days_type" value="2">
                       <label for="weekdays">Weekdays</label>
                   </li>
                   <li>
-                      <input type="radio" id="weekends" name="day-option" value="weekends">
+                      <input class="input-daysType" type="radio" id="weekends" name="days_type" value="5">
                       <label for="weekends">Weekends</label>
                   </li>
               </ul>
@@ -54,19 +54,19 @@
               <h2 class="data_range_parameter_title" >Countdown Options:</h2>
               <ul class="data_range_parameter_list presets-options-list">
                   <li>
-                      <input type="radio" id="days" name="countdown-option" value="days">
+                      <input class="input-measure" type="radio" id="days" name="countdown-option" value="days">
                       <label for="days">Days</label>
                   </li>
                   <li>
-                      <input type="radio" id="hours" name="countdown-option" value="hours">
+                      <input class="input-measure" type="radio" id="hours" name="countdown-option" value="hours">
                       <label for="hours">Hours</label>
                   </li>
                   <li>
-                      <input type="radio" id="minutes" name="countdown-option" value="minutes">
+                      <input class="input-measure" type="radio" id="minutes" name="countdown-option" value="minutes">
                       <label for="minutes">Minutes</label>
                   </li>
                   <li>
-                      <input type="radio" id="seconds" name="countdown-option" value="seconds">
+                      <input class="input-measure" type="radio" id="seconds" name="countdown-option" value="seconds">
                       <label for="seconds">Seconds</label>
                   </li>
               </ul>
@@ -75,13 +75,13 @@
         </form>
       </div>
     </section>
-    <section class="data_range_output">
+    <section class="data_range_output_section">
       <ul class="data_range_output_list">
         <li><p>data_range_output_list data_range_output_list data_range_output_list</p></li>
       </ul>
     </section>
 
-    <script src="script.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
 
