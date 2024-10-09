@@ -5,81 +5,102 @@ const selectedRadioButtonsDaysType = document.querySelectorAll('.input-daysType'
 const selectedRadioButtonsMeasure = document.querySelectorAll('.input-measure');
 const selectedRadioButtonsPreset = document.querySelectorAll('.input-preset')
 
-
+// console.log(selectedRadioButtonsDaysType)
 form.addEventListener('submit', calculate)
 
 function calculate(event) {
   event.preventDefault();
-  const todayDate = event.target.today_date.value
-  const futureDate = event.target.future_date.value
-  let daysType = selectedRadioButtonsDaysType.find(button => button.checked);
-  let measure = selectedRadioButtonsMeasure.find(button => button.checked);
+  const todayDateValue = event.target.today_date.value
+  const futureDateValue = event.target.future_date.value
+  const todayDate = new Date (todayDateValue);
+  const futureDate = new Date (futureDateValue);
+  let daysTypeElement = [...selectedRadioButtonsDaysType].find(button => button.checked);
+  const daysType = daysTypeElement.getAttribute('id')
+  // let measureElement= [...selectedRadioButtonsDaysType].find(button => button.checked);
+  // const measure = measure.getAttribute('id')
 
-  getDurationInMsByDate(startDate, endDate, daysType);
+  console.log(futureDate)
+  console.log(todayDate)
+  console.log(daysType)
 
-  covertMsToDate(getDurationInMsByDate, measure);
+  const time = Math.abs(futureDate - todayDate);
 
-  calculateOutPut = covertMsToDate()
+  console.log(time)
+
+
+  getDurationInMsByDate(todayDate, futureDate, daysType);
+
+  // covertMsToDate(getDurationInMsByDate, measure);
+
+  // calculateOutPut = covertMsToDate()
   
 }
 
-selectedRadioButtonsPreset.forEach((radio) => {
-  radio.addEventListener('click', (event) => {
-    const selectedRadioButtonsPresetValue = event.target.value;
-    switch (selectedRadioButtonsPresetValue) {
-      case 'Week':
-
-        endDateWeek = new Date(getTime() + (7 * 24 * 60 * 60 * 1000));
-// Як тут добавати до дати 7 днів, так шоб можна було сетити це при сабміті форми в формолу 
-// function getDurationInMsByDate(startDate, endDate, daysType). Тут просто знову в час конвертуємо.
-// Як Тут добавати 7 днів то сьогоднішньої дати без додавання 7 днів в секундах. 
-
-        break;
-      case 'Month':
-        endDateMonth = new Date(Date.now() + (30 * 24 * 60 * 60 / 1000));
-        break;
-    }
-    daysDurationBetweenDates();
-  });
-});
-
-function getDurationInMsByDate(startDate, endDate, daysType) {
+function getDurationInMsByDate(todayDate, futureDate, daysType) {
   switch (daysType) {
-    case "all_days":
-        let all_days = (endDate.getTime() - startDate.getTime());
-        all_days = Math.abs(Math.round(all_days))
-        return all_days
+    // case "all_days":
+    //     let all_days = (futureDate.getTime() - todayDate.getTime());
+    //     all_days = Math.abs(Math.round(all_days))
+    //     return all_days
     case "weekdays":
-        let weekdays = (endDate.getTime() - startDate.getTime());
-        weekdays = Math.abs(Math.round(weekdays - (2 * 24 * 60 * 60 * 1000)))
+        let weekdays = Math.abs(futureDate - todayDate);
+        // weekdays = Math.ceil(weekdays - (2 * 24 * 60 * 60 * 1000));
         return weekdays
-    case "weekends":
-        let weekends = (endDate.getTime() - startDate.getTime());
-        weekends = Math.abs(Math.round(weekends - (5 * 24 * 60 * 60 * 1000)))
-        return weekends
+    // case "weekends":
+    //     let weekends = (futureDate.getTime() - todayDate.getTime());
+    //     weekends = Math.abs(Math.round(weekends - (5 * 24 * 60 * 60 * 1000)))
+    //     return weekends
 }
 }
 
-function covertMsToDate(getDurationInMsByDate, measure) {
-    switch (measure) {
-        case "days":
-            let days = (getDurationInMsByDate()) / 1000;
-            let days = Math.abs(Math.round(measure / (60 * 60 * 24)))
-            return days
-        case "hours":
-            let hours = (getDurationInMsByDate()) / 1000;
-            hours = Math.abs(Math.round(measure / (60 * 60)))
-            return hours
-        case "minutes":
-            let minutes = (getDurationInMsByDate()) / 1000;
-            minutes = Math.abs(Math.round(measure / (60)))
-            return minutes
-        case "seconds":
-            let seconds = (getDurationInMsByDate()) / 1000;
-            seconds = Math.abs(Math.round(seconds))
-            return seconds
-    }
-}
+console.log(getDurationInMsByDate())
+
+
+
+
+
+// selectedRadioButtonsPreset.forEach((radio) => {
+//   radio.addEventListener('click', (event) => {
+//     const selectedRadioButtonsPresetValue = event.target.value;
+//     switch (selectedRadioButtonsPresetValue) {
+//       case 'Week':
+
+//         endDateWeek = new Date(getTime() + (7 * 24 * 60 * 60 * 1000));
+// // Як тут добавати до дати 7 днів, так шоб можна було сетити це при сабміті форми в формолу 
+// // function getDurationInMsByDate(startDate, endDate, daysType). Тут просто знову в час конвертуємо.
+// // Як Тут добавати 7 днів то сьогоднішньої дати без додавання 7 днів в секундах. 
+
+//         break;
+//       case 'Month':
+//         endDateMonth = new Date(Date.now() + (30 * 24 * 60 * 60 / 1000));
+//         break;
+//     }
+//     daysDurationBetweenDates();
+//   });
+// });
+
+
+
+// function covertMsToDate(getDurationInMsByDate, measure) {
+//     switch (measure) {
+//         case "days":
+//             let days = (getDurationInMsByDate()) / 1000;
+//             let days = Math.abs(Math.round(days / (60 * 60 * 24)))
+//             return days
+//         case "hours":
+//             let hours = (getDurationInMsByDate()) / 1000;
+//             hours = Math.abs(Math.round(hours / (60 * 60)))
+//             return hours
+//         case "minutes":
+//             let minutes = (getDurationInMsByDate()) / 1000;
+//             minutes = Math.abs(Math.round(minutes / (60)))
+//             return minutes
+//         case "seconds":
+//             let seconds = (getDurationInMsByDate()) / 1000;
+//             seconds = Math.abs(Math.round(seconds))
+//             return seconds
+//     }
+// }
 
 
 
