@@ -1,9 +1,13 @@
 'use strick'
 
 const form = document.querySelector('.date_range_form')
+const futureDateInput = document.getElementById('future_date');
 const selectedRadioButtonsDaysType = document.querySelectorAll('.input-daysType');
 const selectedRadioButtonsMeasure = document.querySelectorAll('.input-measure');
-const selectedRadioButtonsPreset = document.querySelectorAll('.input-preset')
+const selectedRadioButtonsPreset = document.querySelectorAll('.input-preset');
+
+// console.log(futureDateInput)
+
 
 // console.log(selectedRadioButtonsDaysType)
 form.addEventListener('submit', calculate)
@@ -12,6 +16,7 @@ function calculate(event) {
   event.preventDefault();
   const todayDateValue = event.target.today_date.value
   const futureDateValue = event.target.future_date.value
+  console.log(futureDateValue);
   const todayDate = new Date (todayDateValue);
   const futureDate = new Date (futureDateValue);
   let daysTypeElement = [...selectedRadioButtonsDaysType].find(button => button.checked);
@@ -26,15 +31,18 @@ function calculate(event) {
 
   const dateMs = getDurationInMsByDate(todayDate, futureDate, daysType);
 
-  console.log(dateMs)
+  // console.log(dateMs)
 
   const results = covertMsToDate(dateMs, measure);
 
-  console.log(results)
+  // console.log(results)
 
   // calculateOutPut = covertMsToDate()
-  
+  // endDateWeek = new Date (endDateWeek.setDate(date.getDate() + 7);)
+  // console.log(endDateWeek)
+
 }
+
 
 selectedRadioButtonsPreset.forEach((radio) => {
   radio.addEventListener('click', (event) => {
@@ -42,16 +50,19 @@ selectedRadioButtonsPreset.forEach((radio) => {
     console.log(selectedRadioButtonsPresetValue)
     switch (selectedRadioButtonsPresetValue) {
       case 'Week':
-        
-        endDateWeek = new Date(getTime() + (7 * 24 * 60 * 60 * 1000));
-        break;
-      case 'Month':
-        endDateMonth = new Date(Date.now() + (30 * 24 * 60 * 60 / 1000));
-        break;
+        let week = new Date();
+        week = endDateWeek.setDate(date.getDate() + 7);
+        const weekValueFutureDate = futureDateInput.value = week
+        return weekValueFutureDate
+        console.log(weekValueFutureDate)
+      // case 'Month':
+      //   endDateMonth = new Date(Date.now() + (30 * 24 * 60 * 60 / 1000));
+
     }
-    getDurationInMsByDate();
   });
 });
+
+
 
 
 function getDurationInMsByDate(todayDate, futureDate, daysType) {
