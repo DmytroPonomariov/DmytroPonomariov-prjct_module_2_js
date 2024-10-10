@@ -16,91 +16,90 @@ function calculate(event) {
   const futureDate = new Date (futureDateValue);
   let daysTypeElement = [...selectedRadioButtonsDaysType].find(button => button.checked);
   const daysType = daysTypeElement.getAttribute('id')
-  // let measureElement= [...selectedRadioButtonsDaysType].find(button => button.checked);
-  // const measure = measure.getAttribute('id')
+  let measureElement= [...selectedRadioButtonsMeasure].find(button => button.checked);
+  const measure = measureElement.getAttribute('id')
 
-  console.log(futureDate)
-  console.log(todayDate)
-  console.log(daysType)
+  // console.log(futureDate)
+  // console.log(todayDate)
+  // console.log(daysType)
+  // console.log(measure)
 
-  const time = Math.abs(futureDate - todayDate);
+  const dateMs = getDurationInMsByDate(todayDate, futureDate, daysType);
 
-  console.log(time)
+  console.log(dateMs)
 
+  const results = covertMsToDate(dateMs, measure);
 
-  getDurationInMsByDate(todayDate, futureDate, daysType);
-
-  // covertMsToDate(getDurationInMsByDate, measure);
+  console.log(results)
 
   // calculateOutPut = covertMsToDate()
   
 }
 
+selectedRadioButtonsPreset.forEach((radio) => {
+  radio.addEventListener('click', (event) => {
+    const selectedRadioButtonsPresetValue = event.target.value;
+    console.log(selectedRadioButtonsPresetValue)
+    switch (selectedRadioButtonsPresetValue) {
+      case 'Week':
+        
+        endDateWeek = new Date(getTime() + (7 * 24 * 60 * 60 * 1000));
+        break;
+      case 'Month':
+        endDateMonth = new Date(Date.now() + (30 * 24 * 60 * 60 / 1000));
+        break;
+    }
+    getDurationInMsByDate();
+  });
+});
+
+
 function getDurationInMsByDate(todayDate, futureDate, daysType) {
   switch (daysType) {
-    // case "all_days":
-    //     let all_days = (futureDate.getTime() - todayDate.getTime());
-    //     all_days = Math.abs(Math.round(all_days))
-    //     return all_days
+    case "all_days":
+        let all_days = (futureDate.getTime() - todayDate.getTime());
+        all_days = Math.abs(Math.round(all_days))
+        return all_days
     case "weekdays":
         let weekdays = Math.abs(futureDate - todayDate);
-        // weekdays = Math.ceil(weekdays - (2 * 24 * 60 * 60 * 1000));
+        weekdays = Math.ceil(weekdays - (2 * 24 * 60 * 60 * 1000));
         return weekdays
-    // case "weekends":
-    //     let weekends = (futureDate.getTime() - todayDate.getTime());
-    //     weekends = Math.abs(Math.round(weekends - (5 * 24 * 60 * 60 * 1000)))
-    //     return weekends
+    case "weekends":
+        let weekends = (futureDate.getTime() - todayDate.getTime());
+        weekends = Math.abs(Math.round(weekends - (5 * 24 * 60 * 60 * 1000)))
+        return weekends
 }
 }
 
-console.log(getDurationInMsByDate())
+function covertMsToDate(dateMs, measure) {
+  switch (measure) {
+      case "days":
+          let days = (dateMs) / 1000;
+          days = Math.abs(Math.round(days / (60 * 60 * 24)))
+          return days
+      case "hours":
+          let hours = (dateMs) / 1000;
+          hours = Math.abs(Math.round(hours / (60 * 60)))
+          return hours
+      case "minutes":
+          let minutes = (dateMs) / 1000;
+          minutes = Math.abs(Math.round(minutes / (60)))
+          return minutes
+      case "seconds":
+          let seconds = (dateMs) / 1000;
+          seconds = Math.abs(Math.round(seconds))
+          return seconds
+  }
+}
 
 
 
 
 
-// selectedRadioButtonsPreset.forEach((radio) => {
-//   radio.addEventListener('click', (event) => {
-//     const selectedRadioButtonsPresetValue = event.target.value;
-//     switch (selectedRadioButtonsPresetValue) {
-//       case 'Week':
-
-//         endDateWeek = new Date(getTime() + (7 * 24 * 60 * 60 * 1000));
-// // Як тут добавати до дати 7 днів, так шоб можна було сетити це при сабміті форми в формолу 
-// // function getDurationInMsByDate(startDate, endDate, daysType). Тут просто знову в час конвертуємо.
-// // Як Тут добавати 7 днів то сьогоднішньої дати без додавання 7 днів в секундах. 
-
-//         break;
-//       case 'Month':
-//         endDateMonth = new Date(Date.now() + (30 * 24 * 60 * 60 / 1000));
-//         break;
-//     }
-//     daysDurationBetweenDates();
-//   });
-// });
 
 
 
-// function covertMsToDate(getDurationInMsByDate, measure) {
-//     switch (measure) {
-//         case "days":
-//             let days = (getDurationInMsByDate()) / 1000;
-//             let days = Math.abs(Math.round(days / (60 * 60 * 24)))
-//             return days
-//         case "hours":
-//             let hours = (getDurationInMsByDate()) / 1000;
-//             hours = Math.abs(Math.round(hours / (60 * 60)))
-//             return hours
-//         case "minutes":
-//             let minutes = (getDurationInMsByDate()) / 1000;
-//             minutes = Math.abs(Math.round(minutes / (60)))
-//             return minutes
-//         case "seconds":
-//             let seconds = (getDurationInMsByDate()) / 1000;
-//             seconds = Math.abs(Math.round(seconds))
-//             return seconds
-//     }
-// }
+
 
 
 
