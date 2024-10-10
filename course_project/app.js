@@ -2,19 +2,68 @@
 
 const form = document.querySelector('.date_range_form')
 const futureDateInput = document.getElementById('future_date');
+const todayDateInput = document.getElementById('today_date');
+console.log(todayDateInput)
 const selectedRadioButtonsDaysType = document.querySelectorAll('.input-daysType');
 const selectedRadioButtonsMeasure = document.querySelectorAll('.input-measure');
 const selectedRadioButtonsPreset = document.querySelectorAll('.input-preset');
+const dataRangeOutputList = document.querySelector('.data_range_output_list');
+const DeleteHistoryButton = document.querySelector('.clear_dates')
 
-// console.log(futureDateInput)
+
+const DATES_STORAGE_KEY = 'DATES';
+
+document.addEventListener('DOMContentLoaded', renderDates);
+form.addEventListener('submit', calculate);
+DeleteHistoryButton.addEventListener('click', removeDates);
+
+function renderDates() {
+
+  if(getDatesFromLocalStorage()) {
+    const dates = JSON.parse(getDatesFromLocalStorage());
+
+    dates.forEach((results, todayDateInputValue, futureDateValue) => {
+      const li = document.createElement('li');
+      li.innerHTML = results;
+      li.classList.add('results');
+    
+      const pToday = document.createElement('p');
+      pToday.innerHTML = todayDateInputValue;
+      pToday.classList.add('pTodayDate');
+    
+      const pFuture = document.createElement('p');
+      pFuture.innerHTML = futureDateValue;
+      pFuture.classList.add('pFutureDate');
+    
+      dataRangeOutputList.append(li);
+      li.append(pToday);
+      li.append(pFuture);
+    });
+  }
+
+}
 
 
-// console.log(selectedRadioButtonsDaysType)
-form.addEventListener('submit', calculate)
+const todayDateInputValue = toDateInputValue(new Date());
+
+function toDateInputValue(todayDateInput){
+  const local = new Date(todayDateInput);
+  local.setMinutes(todayDateInput.getMinutes() - todayDateInput.getTimezoneOffset());
+  return local.toJSON().slice(0,10);
+};
+
+
+todayDateInput.innerHTML = todayDateInputValue
+
+console.log(todayDateInputValue)
+
+// Я псотавити сьогднішню дату. todayDateInputValue засетився в інпут та в todayDateValue саме сьогоднішній дату В консолі видно. Але не відобрається саме на сторінці. 
+
+
 
 function calculate(event) {
   event.preventDefault();
-  const todayDateValue = event.target.today_date.value
+  const todayDateValue = todayDateInputValue
   const futureDateValue = event.target.future_date.value
   console.log(futureDateValue);
   const todayDate = new Date (todayDateValue);
@@ -35,29 +84,69 @@ function calculate(event) {
 
   const results = covertMsToDate(dateMs, measure);
 
-  // console.log(results)
+  console.log(results)
 
-  // calculateOutPut = covertMsToDate()
-  // endDateWeek = new Date (endDateWeek.setDate(date.getDate() + 7);)
-  // console.log(endDateWeek)
+  createDate(results, todayDateInputValue, futureDateValue); // Створюємо нову задачу
+  setDateToLocalStorage(results, todayDateInputValue, futureDateValue); 
 
+  form.reset();
+}
+
+
+
+function setDateToLocalStorage(results, todayDateInputValue, futureDateValue) {
+
+  let dates = [];
+
+  if (getDatesFromLocalStorage()) {
+    dates = JSON.parse(getDatesFromLocalStorage());
+  }  
+
+  dates.push(results, todayDateInputValue, futureDateValue);
+
+  localStorage.setItem(DATES_STORAGE_KEY, JSON.stringify(dates));
+}
+
+
+function getDatesFromLocalStorage() {
+  return localStorage.getItem(DATES_STORAGE_KEY)
+}
+
+function clearDatesFromLocalStorage() {
+  localStorage.removeItem(DATES_STORAGE_KEY);
+}
+
+
+function removeDates() {
+    dataRangeOutputList.innerHTML = '';
+    clearDatesFromLocalStorage();
 }
 
 
 selectedRadioButtonsPreset.forEach((radio) => {
   radio.addEventListener('click', (event) => {
     const selectedRadioButtonsPresetValue = event.target.value;
-    console.log(selectedRadioButtonsPresetValue)
     switch (selectedRadioButtonsPresetValue) {
-      case 'Week':
+      case 'week':
         let week = new Date();
-        week = endDateWeek.setDate(date.getDate() + 7);
-        const weekValueFutureDate = futureDateInput.value = week
-        return weekValueFutureDate
-        console.log(weekValueFutureDate)
-      // case 'Month':
-      //   endDateMonth = new Date(Date.now() + (30 * 24 * 60 * 60 / 1000));
-
+        let weekMs = week.setTime(week.getTime() + (7 * 24 * 60 * 60 * 1000));
+        week = new Date(weekMs);
+        console.log(week)
+        const weekFormatted = week.toISOString().split('T')[0];
+        console.log(weekFormatted);
+        const futureDateInputWeek = futureDateInput.value = weekFormatted
+        console.log(futureDateInputWeek)
+        return futureDateInputWeek
+      case 'month':
+        let month = new Date();
+        let monthMs = month.setTime(month.getTime() + (30 * 24 * 60 * 60 * 1000));
+        month = new Date(monthMs);
+        console.log(month)
+        const monthFormatted = month.toISOString().split('T')[0];
+        console.log(monthFormatted);
+        const futureDateInputMonth = futureDateInput.value = monthFormatted
+        console.log(futureDateInputMonth)
+        return futureDateInputMonth
     }
   });
 });
@@ -87,20 +176,39 @@ function covertMsToDate(dateMs, measure) {
       case "days":
           let days = (dateMs) / 1000;
           days = Math.abs(Math.round(days / (60 * 60 * 24)))
-          return days
+          return days + ' days'
       case "hours":
           let hours = (dateMs) / 1000;
           hours = Math.abs(Math.round(hours / (60 * 60)))
-          return hours
+          return hours + ' hours'
       case "minutes":
           let minutes = (dateMs) / 1000;
           minutes = Math.abs(Math.round(minutes / (60)))
-          return minutes
+          return minutes + ' minutes'
       case "seconds":
           let seconds = (dateMs) / 1000;
           seconds = Math.abs(Math.round(seconds))
-          return seconds
+          return seconds + ' seconds'
   }
+}
+
+
+function createDate(results, todayDateInputValue, futureDateValue) {
+  const li = document.createElement('li');
+  li.innerHTML = results;
+  li.classList.add('results');
+
+  const pToday = document.createElement('p');
+  pToday.innerHTML = todayDateInputValue;
+  pToday.classList.add('pTodayDate');
+
+  const pFuture = document.createElement('p');
+  pFuture.innerHTML = futureDateValue;
+  pFuture.classList.add('pFutureDate');
+
+  dataRangeOutputList.append(li);
+  li.append(pToday);
+  li.append(pFuture);
 }
 
 
@@ -115,124 +223,6 @@ function covertMsToDate(dateMs, measure) {
 
 
 
-
-
-
-
-
-// ______________
-
-
-
-// // Handle preset button clicks
-// radioPreset.forEach((radio) => {
-//   radio.addEventListener('click', (event) => {
-//     const radioPresetValue = event.target.preset.value;
-//     switch (radioPresetValue) {
-//       case 'Week':
-//         endDateWeek = new Date(Date.now() + 7 * 24 * 60 * 60 / 1000);
-//         break;
-//       case 'Month':
-//         endDateMonth = new Date(Date.now() + 30 * 24 * 60 * 60 / 1000);
-//         break;
-//     }
-//     daysDurationBetweenDates();
-//   });
-// });
-
-// // Функція конвертор часу з мілесекунд в дні, години, хвилини, секунди.
- 
-
-// function daysDurationBetweenDates(startDate, endDate, countdown_options) {
-//     switch (type) {
-//         case "days":
-//             let days = (endDate.getTime() - startDate.getTime()) / 1000;
-//             days = Math.abs(Math.round(days / (60 * 60 * 24)))
-//             return days + ' days'
-//         case "hours":
-//             let hours = (endDate.getTime() - startDate.getTime()) / 1000;
-//             hours = Math.abs(Math.round(hours / (60 * 60)))
-//             return hours + ' hours'
-//         case "minutes":
-//             let minutes = (endDate.getTime() - startDate.getTime()) / 1000;
-//             minutes = Math.abs(Math.round(minutes / (60)))
-//             return minutes + ' minutes'
-//         case "seconds":
-//             let seconds = (endDate.getTime() - startDate.getTime()) / 1000;
-//             seconds = Math.abs(Math.round(seconds))
-//             return seconds + ' seconds'
-//     }
-// }
-
-// console.log(daysDurationBetweenDates(startDate, endDate, "days"))
-
-
-
-  // Я от як думаю. Я взяв значення фючер інпута. Засетив його значення в Ню дейт. І присвоїв ендДейт.
-// Далі присвоїв сьогоднішню дату в сатрт дейт. 
-// Далі є ці значення. Їх якщо відняти то отримаємо мілісекнди. ДАлі можна їх через світчкейс кновертувати для цього у нас є функція нижче. 
-// До неї ще дойдем. Але перед цим. Треба поставити теж якийсь світч чи умову тру.фолс. Слухачі події на радіоботони. 
-// А я не знаю як це робити. Типу через умову. 
-
-// Перше це має бути умова якщо хтось натиснув прісет то добавляєтться тиждень або місяць. Я там добавляю просто в мілесукундах тиждень та місяць.
-// І я хочу щоб це робились один раз тільки до дати в сьогодні + місяць чи тиждень. Щоб до будь-якої дати не можна було добавляти. 
-
-// Key point
-// Так, треба так зробити щоб було свободне поле. Але при кліку на прісет забивався прісет в поле фючер дейт Через світч якось. Якщо клікнув на фючер дейт. Щоб прісет віджимався сам.  
-
-
-
-// Потім Він йде через умову які дні. Також там робимо якось дефолтний день. Можливо треба просто чек поставити на радіо. 
-// Але чи буде це вважатись за клік. Далі. Йдем в останій по суті це -
-//  конвертер мілісекунди в дні, години, хвилини. Які ще можуть бути сценарії. 
-// Наприклад сценарій що не вибрали прісет. Тоді він пропускається. Питання чи знімати прісет з кліка
-// через // Handle preset button clicks як зробив через фор іч. Чи треба кожному радіо робити квері селектор і івент?
-// Приклад який брав за основу
-
-// const countdownElement = document.getElementById('countdown');
-// const presetButtons = document.querySelectorAll('.preset-button');
-// const customDateInput = document.getElementById('custom-date-input');
-
-// // Set the default preset to 2 weeks
-// let targetDate = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000);
-
-// // Update the countdown display
-// function updateCountdown() {
-//   const now = new Date();
-//   const timeDiff = targetDate - now;
-//   const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-//   const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-//   const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-//   const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-
-//   countdownElement.textContent = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
-// }
-
-// // Update the countdown every second
-// setInterval(updateCountdown, 1000);
-
-// // Handle preset button clicks
-// presetButtons.forEach((button) => {
-//   button.addEventListener('click', (e) => {
-//     const presetValue = e.target.dataset.preset;
-//     switch (presetValue) {
-//       case '2 weeks':
-//         targetDate = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000);
-//         break;
-//       case '1 month':
-//         targetDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
-//         break;
-//     }
-//     updateCountdown();
-//   });
-// });
-
-// // Handle custom date input
-// customDateInput.addEventListener('input', (e) => {
-//   const customDate = new Date(e.target.value);
-//   targetDate = customDate;
-//   updateCountdown();
-// });
 
 
 

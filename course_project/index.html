@@ -13,7 +13,7 @@
       <div class="date_range_form_wrapper">
         <form class="date_range_form">
           <div class="date_range_input_and_button ">
-            <input class="date_range_input" type="date" id="today_date" value="">
+            <input class="date_range_input today_date_input" type="date" id="today_date" value="">
             <input class="date_range_input future_date_input" type="date" id="future_date" placeholder="Future Date">
             <div class="data_range_button">
               <button type="submit">Calculate</button>
@@ -76,9 +76,8 @@
       </div>
     </section>
     <section class="data_range_output_section">
-      <ul class="data_range_output_list">
-        <li><p>data_range_output_list data_range_output_list data_range_output_list</p></li>
-      </ul>
+      <ul class="data_range_output_list"></ul>
+      <button class="clear_dates">Delete history</button>
     </section>
 
     <script src="app.js"></script>
