@@ -1,9 +1,68 @@
 'use strick'
 
+const tabButtons  = document.querySelectorAll('.tab-nav input[type="radio"]');
+const tabContents = document.querySelectorAll('.tab-content');
+
+document.addEventListener('DOMContentLoaded', () => { 
+    setupTabListeners(); 
+    initializeTabContents(); 
+});
+
+function setupTabListeners() {
+    tabButtons.forEach(tab => handleTabChange(tab));
+}
+
+function handleTabChange(tab) {
+    tab.addEventListener('change', () => {
+
+        hideAllTabContents();
+        
+        if (tab.checked) {
+            showActiveTabContent(tab);
+        }
+    });
+}
+
+function hideAllTabContents() { 
+    tabContents.forEach(content => content.style.display = 'none');
+}
+
+function showActiveTabContent(tab) {
+    const activeTabContent = document.getElementById(`content-${tab.id.split('-')[2]}`);
+    if (activeTabContent) {
+        activeTabContent.style.display = 'block';
+      switch (tab.id) {
+        case 'tab-btn-1':
+            renderDates(); 
+            break;
+        case 'tab-btn-2':
+            fetchCountries();
+            break;      
+        default:
+            break;
+      }  
+    }
+}
+
+function initializeTabContents() {
+    tabButtons.forEach(tab => {
+        if (tab.checked) {
+            showActiveTabContent(tab);
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
 const form = document.querySelector('.date_range_form')
 const futureDateInput = document.getElementById('future_date');
 const todayDateInput = document.getElementById('today_date');
-console.log(todayDateInput)
 const selectedRadioButtonsDaysType = document.querySelectorAll('.input-daysType');
 const selectedRadioButtonsMeasure = document.querySelectorAll('.input-measure');
 const selectedRadioButtonsPreset = document.querySelectorAll('.input-preset');
@@ -17,31 +76,6 @@ document.addEventListener('DOMContentLoaded', renderDates);
 form.addEventListener('submit', calculate);
 DeleteHistoryButton.addEventListener('click', removeDates);
 
-function renderDates() {
-
-  if(getDatesFromLocalStorage()) {
-    const dates = JSON.parse(getDatesFromLocalStorage());
-
-    dates.forEach((results, todayDateInputValue, futureDateValue) => {
-      const li = document.createElement('li');
-      li.innerHTML = results;
-      li.classList.add('results');
-    
-      const pToday = document.createElement('p');
-      pToday.innerHTML = todayDateInputValue;
-      pToday.classList.add('pTodayDate');
-    
-      const pFuture = document.createElement('p');
-      pFuture.innerHTML = futureDateValue;
-      pFuture.classList.add('pFutureDate');
-    
-      dataRangeOutputList.append(li);
-      li.append(pToday);
-      li.append(pFuture);
-    });
-  }
-
-}
 
 
 const todayDateInputValue = toDateInputValue(new Date());
@@ -55,7 +89,7 @@ function toDateInputValue(todayDateInput){
 
 todayDateInput.innerHTML = todayDateInputValue
 
-console.log(todayDateInputValue)
+// console.log(todayDateInputValue)
 
 // Я псотавити сьогднішню дату. todayDateInputValue засетився в інпут та в todayDateValue саме сьогоднішній дату В консолі видно. Але не відобрається саме на сторінці. 
 
@@ -102,15 +136,35 @@ function setDateToLocalStorage(results, todayDateInputValue, futureDateValue) {
     dates = JSON.parse(getDatesFromLocalStorage());
   }  
 
-  dates.push(results, todayDateInputValue, futureDateValue);
+  console.log(dates)
 
+  dates.push(`From: ${todayDateInputValue} To: ${futureDateValue} | ${results}`);
+  
+  if (dates.length > 10) {
+    dates.shift()
+  }
   localStorage.setItem(DATES_STORAGE_KEY, JSON.stringify(dates));
+}
+
+
+function renderDates() {
+  dataRangeOutputList.innerHTML = '';
+
+  if(getDatesFromLocalStorage()) {
+    const dates = JSON.parse(getDatesFromLocalStorage());
+
+    dates.forEach(date => {
+      const listItem = document.createElement('li');
+      listItem.innerText = date;
+      dataRangeOutputList.appendChild(listItem);    });
+  }
 }
 
 
 function getDatesFromLocalStorage() {
   return localStorage.getItem(DATES_STORAGE_KEY)
 }
+
 
 function clearDatesFromLocalStorage() {
   localStorage.removeItem(DATES_STORAGE_KEY);
@@ -152,8 +206,6 @@ selectedRadioButtonsPreset.forEach((radio) => {
 });
 
 
-
-
 function getDurationInMsByDate(todayDate, futureDate, daysType) {
   switch (daysType) {
     case "all_days":
@@ -169,7 +221,8 @@ function getDurationInMsByDate(todayDate, futureDate, daysType) {
         weekends = Math.abs(Math.round(weekends - (5 * 24 * 60 * 60 * 1000)))
         return weekends
 }
-}
+};
+
 
 function covertMsToDate(dateMs, measure) {
   switch (measure) {
@@ -190,27 +243,148 @@ function covertMsToDate(dateMs, measure) {
           seconds = Math.abs(Math.round(seconds))
           return seconds + ' seconds'
   }
-}
+};
 
 
 function createDate(results, todayDateInputValue, futureDateValue) {
   const li = document.createElement('li');
-  li.innerHTML = results;
+  li.innerHTML = (`From: ${todayDateInputValue} To: ${futureDateValue} | ${results}`)
   li.classList.add('results');
 
-  const pToday = document.createElement('p');
-  pToday.innerHTML = todayDateInputValue;
-  pToday.classList.add('pTodayDate');
-
-  const pFuture = document.createElement('p');
-  pFuture.innerHTML = futureDateValue;
-  pFuture.classList.add('pFutureDate');
-
   dataRangeOutputList.append(li);
-  li.append(pToday);
-  li.append(pFuture);
+};
+
+
+
+
+
+
+
+
+const apiToken      = 'bRhSp75zNJYqrYlhWThMvINrqnpXHi9q';
+const countrySelect = document.querySelector('#country');
+const year          = document.querySelector('#year');
+const holidaysList  = document.querySelector('#holidays-list');
+const fetchButton   = document.querySelector('#fetchHolidays');
+
+const holidayFilter  = document.querySelector('#holidayFilter');
+const sortAscButton  = document.querySelector('#sortAsc');
+const sortDescButton = document.querySelector('#sortDesc');
+
+sortAscButton.addEventListener('click', () => sortHolidays('asc'));
+sortDescButton.addEventListener('click', () => sortHolidays('desc'));
+holidayFilter.addEventListener('input', filterHolidays);
+
+let holidays = [];
+    
+fetchButton.addEventListener('click', () => {
+  const selectedYear = year.value;
+  const selectedCountry = countrySelect.value;
+
+    if (selectedCountry && selectedYear) {
+            fetchHolidays(selectedCountry, selectedYear);
+          
+    } else {
+        alert('Choose country');
+    }
+});
+
+countrySelect.addEventListener('change', () => {
+    yearInput.disabled = countrySelect.value === '';
+});
+
+let filteredHolidays = [];
+
+function filterHolidays() {
+    console.log ('filter', holidays);
+    const filterText = holidayFilter.value.toLowerCase();
+    const holidaysToFilter = holidaysList.querySelectorAll('.holidayItem'); // Отримуємо всі показані свята
+    console.log ('filter 2', holidaysToFilter);
+    filteredHolidays = holidays.filter(holiday => 
+        holiday.name.toLowerCase().includes(filterText)
+    );
+
+    renderHolidays(filteredHolidays);
 }
 
+function sortHolidays(order = 'asc') {
+    console.log ('sort', holidays);
+    const holidaysToSort = filteredHolidays.length > 0 ? filteredHolidays : holidays; // Sort filtered holidays if any
+
+    holidaysToSort.sort((a, b) => {
+        const dateA = new Date(a.date.iso);
+        const dateB = new Date(b.date.iso);
+        return order === 'asc' ? dateA - dateB : dateB - dateA;
+    });
+
+    renderHolidays(holidaysToSort);
+}
+
+
+
+function renderHolidays(holidaysToRender) {
+    holidaysList.innerHTML = '';
+    holidaysToRender.forEach(holiday => {
+
+        const row = document.createElement('tr');
+
+        const dateCell = document.createElement('td');
+        dateCell.textContent = holiday.date.iso;
+
+        const nameCell = document.createElement('td');
+        nameCell.textContent = holiday.name;
+
+        row.appendChild(dateCell);
+        row.appendChild(nameCell);
+
+        holidaysList.appendChild(row);       
+    });
+}
+
+
+async function fetchCountries() {
+    try {
+        const response = await fetch(`https://calendarific.com/api/v2/countries?api_key=${apiToken}`);
+
+        if (!response.ok) {
+            throw new Error(`ERROR`);
+        }
+
+        const data = await response.json();
+        const countries = data.response.countries;
+
+        countries.forEach(country => {
+            const option = document.createElement('option');
+            option.value = country['iso-3166'];
+            option.textContent = country.country_name;
+            countrySelect.appendChild(option);
+        });
+
+    } catch (error) {
+        console.error('Error getting data from the site:', error); 
+        alert('Failed to get list of countries. Try again later.');
+    }
+}
+
+async function fetchHolidays(countryCode, year) {
+    holidaysList.innerHTML = '';
+    const url = `https://calendarific.com/api/v2/holidays?api_key=${apiToken}&country=${countryCode}&year=${year}&language=uk`;
+
+    try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`ERROR`);
+        }
+
+        const data = await response.json();
+        holidays = data.response.holidays;
+       renderHolidays(holidays);
+
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
 
 
 

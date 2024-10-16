@@ -3,86 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Range Calculator</title>
+    <title>CourseProject</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <section class="data_range_section">
-      <h1 class="date_range_title">Data Range Calculator</h1>
-      <div class="date_range_form_wrapper">
-        <form class="date_range_form">
-          <div class="date_range_input_and_button ">
-            <input class="date_range_input today_date_input" type="date" id="today_date" value="">
-            <input class="date_range_input future_date_input" type="date" id="future_date" placeholder="Future Date">
-            <div class="data_range_button">
-              <button type="submit">Calculate</button>
-            </div>
+  <div class="main_container">
+    <div class="tab">
+      <nav class="tab-nav">
+      <input id="tab-btn-1" name="tab-btn" type="radio" value="1" checked>
+      <label for="tab-btn-1">Data Range Calculator</label>
+      <input id="tab-btn-2" name="tab-btn" type="radio" value="">
+      <label for="tab-btn-2">Public Holidays List</label>
+      </nav>
+      <div class="tab-content" id="content-1">
+      <div class="container">
+        <section class="data_range_section">
+          <h1 class="date_range_title">Data Range Calculator</h1>
+          <div class="date_range_form_wrapper">
+            <form class="date_range_form">
+              <div class="date_range_input_and_button ">
+                <input class="date_range_input today_date_input" type="date" id="today_date" value="">
+                <input class="date_range_input future_date_input" type="date" id="future_date" placeholder="Future Date">
+                <div class="data_range_button">
+                  <button type="submit">Calculate</button>
+                  <button class="clear_dates">Delete history</button>
+                </div>
+              </div>
+              <div class="data_range_parameters">
+                <div class="data_range_parameter">
+                  <h2 class="data_range_parameter_title">Time Interval Presets:</h2>
+                  <ul class="data_range_parameter_list presets-options-list">
+                      <li>
+                          <input class="input-preset" type="radio" id="week" name="preset" value="week">
+                          <label for="week">Week</label>
+                      </li>
+                      <li>
+                          <input class="input-preset" type="radio" id="month" name="preset" value="month">
+                          <label for="month">Month</label>
+                      </li>
+                  </ul>
+                </div>
+                <div class="data_range_parameter">
+                  <h2 class="data_range_parameter_title" >Day Options:</h2>
+                  <ul class="data_range_parameter_list presets-options-list">
+                      <li>
+                          <input class="input-daysType" type="radio" id="all_days" name="days_type" value="7">
+                          <label for="all-days">All days</label>
+                      </li>
+                      <li>
+                          <input class="input-daysType" type="radio" id="weekdays" name="days_type" value="2">
+                          <label for="weekdays">Weekdays</label>
+                      </li>
+                      <li>
+                          <input class="input-daysType" type="radio" id="weekends" name="days_type" value="5">
+                          <label for="weekends">Weekends</label>
+                      </li>
+                  </ul>
+                </div>
+                <div class="data_range_parameter">
+                  <h2 class="data_range_parameter_title" >Countdown Options:</h2>
+                  <ul class="data_range_parameter_list presets-options-list">
+                      <li>
+                          <input class="input-measure" type="radio" id="days" name="countdown-option" value="days">
+                          <label for="days">Days</label>
+                      </li>
+                      <li>
+                          <input class="input-measure" type="radio" id="hours" name="countdown-option" value="hours">
+                          <label for="hours">Hours</label>
+                      </li>
+                      <li>
+                          <input class="input-measure" type="radio" id="minutes" name="countdown-option" value="minutes">
+                          <label for="minutes">Minutes</label>
+                      </li>
+                      <li>
+                          <input class="input-measure" type="radio" id="seconds" name="countdown-option" value="seconds">
+                          <label for="seconds">Seconds</label>
+                      </li>
+                  </ul>
+                </div>
+              </div>  
+            </form>
           </div>
-          <div class="data_range_parameters">
-            <div class="data_range_parameter">
-              <h2 class="data_range_parameter_title">Time Interval Presets:</h2>
-              <ul class="data_range_parameter_list presets-options-list">
-                  <li>
-                      <input class="input-preset" type="radio" id="week" name="preset" value="week">
-                      <label for="week">Week</label>
-                  </li>
-                  <li>
-                      <input class="input-preset" type="radio" id="month" name="preset" value="month">
-                      <label for="month">Month</label>
-                  </li>
-              </ul>
-            </div>
-            <div class="data_range_parameter">
-              <h2 class="data_range_parameter_title" >Day Options:</h2>
-              <ul class="data_range_parameter_list presets-options-list">
-                  <li>
-                      <input class="input-daysType" type="radio" id="all_days" name="days_type" value="7">
-                      <label for="all-days">All days</label>
-                  </li>
-                  <li>
-                      <input class="input-daysType" type="radio" id="weekdays" name="days_type" value="2">
-                      <label for="weekdays">Weekdays</label>
-                  </li>
-                  <li>
-                      <input class="input-daysType" type="radio" id="weekends" name="days_type" value="5">
-                      <label for="weekends">Weekends</label>
-                  </li>
-              </ul>
-            </div>
-            <div class="data_range_parameter">
-              <h2 class="data_range_parameter_title" >Countdown Options:</h2>
-              <ul class="data_range_parameter_list presets-options-list">
-                  <li>
-                      <input class="input-measure" type="radio" id="days" name="countdown-option" value="days">
-                      <label for="days">Days</label>
-                  </li>
-                  <li>
-                      <input class="input-measure" type="radio" id="hours" name="countdown-option" value="hours">
-                      <label for="hours">Hours</label>
-                  </li>
-                  <li>
-                      <input class="input-measure" type="radio" id="minutes" name="countdown-option" value="minutes">
-                      <label for="minutes">Minutes</label>
-                  </li>
-                  <li>
-                      <input class="input-measure" type="radio" id="seconds" name="countdown-option" value="seconds">
-                      <label for="seconds">Seconds</label>
-                  </li>
-              </ul>
-            </div>
-          </div>  
-        </form>
+        </section>
+        <section class="data_range_output_section">
+          <ul class="data_range_output_list"></ul>
+        </section>
+      </section>
+    </div>
       </div>
-    </section>
-    <section class="data_range_output_section">
-      <ul class="data_range_output_list"></ul>
-      <button class="clear_dates">Delete history</button>
-    </section>
+      <div class="tab-content" id="content-2">
+        <div class="container">
+          <h1 class="date_range_title ">Public Holidays List</h1>
+          
+          <div class="input-group">
+              <label for="country">Choose country :</label>
+              <select id="country" name="country" class="input-group_select_input"></select>
+          </div>
+  
+          <div class="input-group">
+              <label for="year">Choose year :</label>
+              <input type="number" id="year" name="year" min="2001" max="2049" value="2024" class="input-group_select_input">
+          </div>
+          <div class="data_range_button button-margin">
+            <button id="fetchHolidays">Submit</button>
+          </div>
+          <div class="input-search">
+            <label for="holidayFilter">Search :</label>
+            <input type="text" id="holidayFilter" placeholder="Enter holiday name" class="input-group_select_input">
+        </div>
+          <div id="results">
+             <table id="holidays-table">
+              <thead>
+                  <tr>
+                      <th class="holiday_results_table">
+                          Date
+                          <button id="sortAsc" class="sort-btn">▲</button>
+                          <button id="sortDesc" class="sort-btn">▼</button>
+                      </th>
+                      <th class="holiday_results_table">Name of holiday</th>
+                  </tr>
+              </thead>
+              <tbody id="holidays-list" class="holidays-list_table"></tbody>
+          </table>   
+          </div>
+       </div>
+      </div>
 
+    </div>
+  </div>
     <script src="app.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <!-- <!DOCTYPE html>

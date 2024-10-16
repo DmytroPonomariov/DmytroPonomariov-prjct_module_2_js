@@ -6,12 +6,53 @@
 
 body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: #e8aad0;
+}
+
+.tab-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: #e8aad0;
+}
+
+.tab-nav > input[type="radio"] {
+  display: none;
+}
+
+.tab-nav > label {
+  font-size: 20px;
+  padding: 20px 20px;
+  background-color: hsl(323, 59%, 41%);
+  color: #fff;
+  border-radius: 15px;
+  cursor: pointer;
+  flex-grow: 1;
+  text-align: center;
+  margin: 5px;  
+  transition: background-color 0.3s;
+}
+
+.tab-nav > input[type="radio"]:checked + label {
+  background-color: hsl(323, 59%, 41%);
+  /* color: #fff; */
+  cursor: default;
+}
+
+.tab-nav > label:hover {
+  background-color: hsl(323, 87%, 21%);
+}
+
+.tab-content {
+  display: none;
+}
+
+#tab-btn-1:checked ~ .tab-content#content-1,
+#tab-btn-2:checked ~ .tab-content#content-2 {
+  display: block;
 }
 
 .container{
-    /* display: flex;
-    gap: 50px;
-    justify-content: center; */
     padding: 30px 15px;
     background-color: #e8aad0;
 }
@@ -21,17 +62,13 @@ body {
     margin-bottom: 50px;
 }
 
-.date_range_input_and_button{
-    display: flex;
-    justify-content: space-between;
-
-}
-
 
 
 .data_range_button{
     position:relative;
     display:inline-block;
+    display: flex;
+    gap: 27px;
     /* margin:20px; */
   }
   
@@ -86,7 +123,6 @@ body {
     bottom:-15px;
     left:-4px;
     z-index:-1;
-    background-color:#26185a;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -148,6 +184,8 @@ body {
 }
 
 .date_range_input_and_button{
+    display: flex;
+    justify-content: space-between;
     max-width: 680px;
     margin-bottom: 20px;
 }
@@ -208,3 +246,56 @@ body {
 .presets-options-list label:hover {
     background: #DDD;
   }
+
+.data_range_output_list{
+  list-style-type: none;
+  margin: 25px 0 0 0;
+  padding: 0;
+  font-size: 20px;
+}
+
+.input-group{
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.input-group_select_input{
+  width: 171px;
+  height: 41px;
+  font-size: 18px;
+}
+
+.button-margin{
+  margin-bottom: 26px;
+}
+
+.input-search{
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.holiday_results_table{
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.holidays-list_table{
+  font-size: 17px;
+}
+
+
+@media (max-width: 1024px) {
+  .date_range_input_and_button {
+    display: block;
+  }
+
+  .data_range_button{
+    margin-top: 20px;
+  }
+}
+
+
+
+
+
+
